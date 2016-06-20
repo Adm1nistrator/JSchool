@@ -1,11 +1,11 @@
 package jschool;
 
-        import com.fasterxml.jackson.annotation.JsonProperty;
-        import org.springframework.hateoas.ResourceSupport;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.hateoas.ResourceSupport;
 
-        import javax.persistence.*;
-        import java.io.Serializable;
-        import java.sql.Date;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * Created by anykey on 16.06.16.
@@ -31,8 +31,8 @@ public class User extends ResourceSupport implements Serializable {
     @Column
     private String adress;
 
-    public User(@JsonProperty("user") String firstName, String lastName, Date birthDay,
-                String login, String password, String aBout, String adress) {
+    public User(@JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName, @JsonProperty("birthDay") Date birthDay,
+                @JsonProperty("login") String login, @JsonProperty("password") String password, @JsonProperty("aBout") String aBout, @JsonProperty("adress") String adress) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDay = birthDay;

@@ -1,47 +1,59 @@
 package jschool;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import services.UserDao;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 public class UserController {
 
-    private UserDao userDao;
+    @RequestMapping(method = RequestMethod.POST, path = "/rest/users/")
+    public ResponseEntity<User> create(@RequestBody User user) {
+        System.out.println("Создан пользователь" + user.getLastName());
 
-    @RequestMapping(method = RequestMethod.POST, path = "/rest/api/1/user/create")
-    public HttpEntity<User> userCreate(@RequestParam(value = "firstName", required = true) String firstName,
-                                       @RequestParam(value = "lastName", required = false) String lastName,
-                                       @RequestParam(value = "birthDay", required = false) Date birthDay,
-                                       @RequestParam(value = "login", required = true) String login,
-                                       @RequestParam(value = "password", required = false) String password,
-                                       @RequestParam(value = "aBout", required = false) String aBout,
-                                       @RequestParam(value = "adress", required = false) String adress) {
-        User user = new User(firstName, lastName, birthDay, login, password, aBout, adress);
-        user.add(linkTo(methodOn(UserController.class).userCreate(firstName, lastName, birthDay, login, password, aBout, adress)).withSelfRel());
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/rest/api/1/user/")
-    public HttpEntity<User> userRead() {
-        List<User> userList = userDao.readAllUser();
-        for (Integer i=0;i<userList.size();i++ )
-        {
-            userList.get(i).add(linkTo(methodOn(UserController.class).userRead()).withSelfRel());
-            return new ResponseEntity<User>(userList.get(i), HttpStatus.OK);
-        }
-        return null;
+
+    @RequestMapping(method = RequestMethod.GET, path = "/rest/users/{login}")
+    public ResponseEntity<User> findByLogin(@PathVariable("login") String login) {
+
+        User user = new User("Алексей", "Долгих", new Date(123), login, "password!1", "student", "academ.ru");
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+
+    @RequestMapping(method = RequestMethod.GET, path = "/rest/users/")
+    public HttpEntity<List<User>> findAll() {
+        List<User> users = new ArrayList<>();
+        User user0 = new User("Алексей", "Долгих", new Date(123), "anykey", "password!1", "student", "academ.ru");
+        User user1 = new User("иван", "петров", new Date(12343), "hobbit", "password!2", "dent", "academ.info");
+        users.add(user0);
+        users.add(user1);
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/rest/users/{login}")
+    public ResponseEntity<User> update(@PathVariable("login") String login,
+                                       @RequestBody User user) {
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(method = RequestMethod.DELETE, path = "/rest/users/{login}")
+    public ResponseEntity<User> delete(@PathVariable String login) {
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
 }
