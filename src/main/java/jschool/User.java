@@ -31,8 +31,8 @@ public class User extends ResourceSupport implements Serializable {
     @Column
     private String adress;
 
-    public User(@JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName, @JsonProperty("birthDay") Date birthDay,
-                @JsonProperty("login") String login, @JsonProperty("password") String password, @JsonProperty("aBout") String aBout, @JsonProperty("adress") String adress) {
+    public User(@JsonProperty String firstName, @JsonProperty String lastName, @JsonProperty Date birthDay,
+                @JsonProperty String login, @JsonProperty String password, @JsonProperty String aBout, @JsonProperty String adress) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDay = birthDay;
