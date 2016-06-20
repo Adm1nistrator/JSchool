@@ -1,6 +1,7 @@
 package services;
 
 import jschool.User;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -12,7 +13,8 @@ import java.util.List;
 /**
  * Created by anykey on 17.06.16.
  */
-public class UserDao implements UserService {
+@Component
+public class UserDao {
 
     // Injected database connection:
     @PersistenceContext
@@ -24,17 +26,18 @@ public class UserDao implements UserService {
         entityManager.persist(user);
     }
 
-    @Override
+
     public User create(String firstName, String lastName, Date birthDay, String login, String password, String aBout, String adress) {
-        return null;
+        User user = new User(firstName, lastName, birthDay, login, password, aBout, adress);
+        entityManager.persist(user);
+        return user;
     }
 
-    @Override
     public User read(String login) {
         return null;
     }
 
-    @Override
+
     public List<User> readAllUser() {
         TypedQuery<User> query = entityManager.createQuery(
                 "SELECT g FROM User g ORDER BY g.login", User.class);
@@ -42,12 +45,10 @@ public class UserDao implements UserService {
 
     }
 
-    @Override
     public User update(String fistName, String lastName, Date birthDay, String login, String password, String aBout, String adress) {
         return null;
     }
 
-    @Override
     public void delete(String login) {
 
     }

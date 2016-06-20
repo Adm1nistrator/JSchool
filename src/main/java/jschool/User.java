@@ -17,7 +17,7 @@ public class User extends ResourceSupport implements Serializable {
     // Persistent Fields:
     @Column(name = "firstName")
     private String firstName;
-    @Column(name = "name")
+    @Column(name = "lastName")
     private String lastName;
     @Column
     private Date birthDay;
