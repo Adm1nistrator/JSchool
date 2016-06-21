@@ -11,38 +11,45 @@ import java.sql.Date;
  * Created by anykey on 16.06.16.
  */
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class User extends ResourceSupport implements Serializable {
 
     // Persistent Fields:
-    @Column(name = "firstName")
+    @Id
+    @Column
+    private String login;
+
+    @Column
     private String firstName;
-    @Column(name = "lastName")
+
+    @Column
     private String lastName;
+
     @Column
     private Date birthDay;
-    @Id
-    @Column(name = "login")
-    private String login;
+
     @Column
     private String password;
+
     @Column
     private String aBout;
+
     @Column
-    private String adress;
+    private String address;
 
     public User(@JsonProperty String firstName, @JsonProperty String lastName, @JsonProperty Date birthDay,
-                @JsonProperty String login, @JsonProperty String password, @JsonProperty String aBout, @JsonProperty String adress) {
+                @JsonProperty String login, @JsonProperty String password, @JsonProperty String aBout, @JsonProperty String address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDay = birthDay;
         this.login = login;
         this.password = password;
         this.aBout = aBout;
-        this.adress = adress;
+        this.address = address;
     }
 
     public User() {
+        //nop
     }
 
     public String getFirstName() {
@@ -93,11 +100,11 @@ public class User extends ResourceSupport implements Serializable {
         this.aBout = aBout;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String adress) {
+        this.address = adress;
     }
 }
