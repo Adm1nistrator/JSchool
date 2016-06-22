@@ -41,14 +41,14 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getUser(String login) {
         Session session = this.sessionFactory.getCurrentSession();
-        User user = session.load(User.class, login);
+        User user = (User) session.load(User.class, login);
         return user;
     }
 
     @Override
     public void removeUser(String login) {
         Session session = this.sessionFactory.getCurrentSession();
-        User user = session.load(User.class, login);
+        User user = (User) session.load(User.class, login);
         if (user != null) {
             session.delete(user);
         }

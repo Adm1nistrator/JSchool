@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -26,7 +25,7 @@ public class UserRestController {
     public ResponseEntity<User> create(@RequestBody User user) {
         System.out.println("Создан пользователь" + user.getLastName());
         if (!user.getLogin().equals("")) {
-           this.userService.addUser(user);
+            this.userService.addUser(user);
         }
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -53,7 +52,7 @@ public class UserRestController {
     public ResponseEntity<User> update(@PathVariable("login") String login,
                                        @RequestBody User user) {
         this.userService.updateUser(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(this.userService.getUser(login), HttpStatus.OK);
     }
 
 
