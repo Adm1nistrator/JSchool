@@ -11,12 +11,12 @@ import java.sql.Date;
 import java.util.List;
 
 @RestController
-public class UserController {
+public class UserRestController {
 
 
     private UserService userService;
 
-    @Autowired
+    @Autowired(required = true)
     @Qualifier(value = "userService")
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -26,7 +26,7 @@ public class UserController {
     public ResponseEntity<User> create(@RequestBody User user) {
         System.out.println("Создан пользователь" + user.getLastName());
         if (!user.getLogin().equals("")) {
-            this.userService.addUser(user);
+           this.userService.addUser(user);
         }
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -34,9 +34,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/rest/users/{login}")
     public ResponseEntity<User> findByLogin(@PathVariable("login") String login) {
-        User user = new User("Алексей", "Долгих", new Date(123), login, "password!1", "student", "academ.ru");
-        this.userService.getUser(login);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(this.userService.getUser(login), HttpStatus.OK);
     }
 
 

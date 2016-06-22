@@ -1,6 +1,8 @@
 package jschool;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
