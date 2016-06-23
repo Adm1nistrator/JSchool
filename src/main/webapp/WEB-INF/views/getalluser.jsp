@@ -1,6 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <script type="text/javascript" src="../../resources/jquery-2.2.0.min.js"></script>
+    <script src="<c:url value="/resources/jquery-2.2.0.min.js" />"></script>
+   <%-- <script type="text/javascript" src="/resources/jquery-2.2.0.min.js"></script>--%>
 </head>
 
 <body>
