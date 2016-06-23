@@ -1,6 +1,7 @@
 package jschool;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Proxy;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.Column;
@@ -15,6 +16,7 @@ import java.sql.Date;
  */
 @Entity
 @Table(name = "USERS")
+@Proxy(lazy = false)
 public class User extends ResourceSupport implements Serializable {
 
     // Persistent Fields:
