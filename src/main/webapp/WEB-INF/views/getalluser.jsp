@@ -1,40 +1,53 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <script src="<c:url value="/resources/jquery-2.2.0.min.js" />"></script>
-   <%-- <script type="text/javascript" src="/resources/jquery-2.2.0.min.js"></script>--%>
-</head>
+    <%--<script src="<c:url value="/resources/jquery-3.0.0.min.js" />"></script>--%>
+     <script type="text/javascript" src="/resources/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript">
 
-<body>
+        jQuery('#json').click(function () {
 
-<button id="ajax">ajax call</button>
-<button id="json">json</button>
-
-<script type="text/javascript">
-    $('#json').click(function(){
-        alert('json');
-        $.getJSON("http://localhost:8888/rest/users/",
-                function(data) {
-                    alert(data);
-                });
-    });
-
-    $('#ajax').click(function(){
-        alert('ajax');
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: "http://localhost:8888/rest/users/",
-            success: function(data){
-                alert(data);
-            }
+            $.getJSON("${pageContext.request.contextPath}/rest/users/",
+                    function (data) {
+                        $('#myName').html(data[0].firstName);
+                    });
         });
-    });
 
-</script>
 
+
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "${pageContext.request.contextPath}/rest/users/",
+                success: function (data) {
+                    var $resultList =  $('.list-placeholder');
+                    for(var i=0; i< data.length; i++){
+                        var item = data[i];
+                        $resultList.append("<div class='red'>"+item.firstName+"</div>").append("<div>"+item.lastName+"</div>");
+                    }
+                },
+                error: function(){
+
+                },
+                complete: function(){
+                   $(".waiting").hide();
+                }
+            });
+
+
+    </script>
+</head>
+<body>
+    <h1>Список пользователей</h1>
+
+    <span class="waiting">waiting...</span>
+    <div class="list-placeholder"></div>
+    <div class="list-placeholder"></div>
+
+    <button id="ajax">ajax call</button>
+    <button id="json">json</button>
 
 
 </body>
-
 </html>
