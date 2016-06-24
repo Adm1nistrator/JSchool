@@ -13,9 +13,18 @@ import java.io.UnsupportedEncodingException;
 @Controller
 public class UserController {
 
-    @RequestMapping(path = "/")
-    public ModelAndView startHtml(HttpServletRequest request) throws UnsupportedEncodingException {
+    @RequestMapping(path = "/getalluser")
+    public ModelAndView getAllUser(HttpServletRequest request) throws UnsupportedEncodingException {
         return new ModelAndView("getalluser");
+    }
+
+    @RequestMapping(path = "/getuser")
+    public ModelAndView getUser(HttpServletRequest request) throws UnsupportedEncodingException {
+        return new ModelAndView("getuser");
+    }
+    @RequestMapping(path = "/adduser")
+    public ModelAndView addUser(HttpServletRequest request) throws UnsupportedEncodingException {
+        return new ModelAndView("adduser");
     }
 
 }
