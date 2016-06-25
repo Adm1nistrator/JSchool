@@ -20,7 +20,7 @@
 
                 },
                 complete: function(){
-                   $(".waiting").hide();
+                   $(".progress").hide();
                 }
             });
 
@@ -30,7 +30,9 @@
 <body>
     <h1>Список пользователей</h1>
 
-    <span class="waiting">waiting...</span>
+    <div class="progress">
+        <div class="indeterminate"></div>
+    </div>
     <div class="list-placeholder"></div>
 
 </body>

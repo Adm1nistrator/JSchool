@@ -13,11 +13,11 @@
 
     <script type="text/javascript" src="/resources/js/jquery-3.0.0.min.js"></script>
     <script type="text/javascript">
-
-            $("#addUserButton").submit(function () {
+        $(function () {
+            $("#form").submit(function () {
                 var formData = {
-                    "login": $("#login").val(),
-                    "firstName": $("#firstName").val(),
+                    "login": $("[name='login']").val(),
+                    "firstName": $("[name='firstName']").val(),
                     "lastName": $("#lastName").val(),
                     "birthDay": $("#birthDay").val(),
                     "password": $("#password").val(),
@@ -25,25 +25,42 @@
                     "address": $("#address").val()
                 };
                 $.ajax({
-                    url: "{pageContext.request.contextPath}/rest/users/",
+                    url: "${pageContext.request.contextPath}/rest/users/",
                     type: 'POST',
-                    data: 'jsonData=' + $.toJSON(formData),
-                    success: function (res) {
-                        alert(res);
+                    contentType: "application/json; charset=utf-8",
+                    data: $.toJSON(formData),
+                    success: function () {
+                        alert("Пользователь добавлен");
+                    },
+                    error: function () {
+                        alert("что-то пошло не так ");
+                    },
+                    complete: function () {
+                        alert("выполненно ");
                     }
                 });
-                return false;
+               /* return false;*/
             });
+        });
     </script>
+
 
 </head>
 <body>
 
 <script type="text/javascript" src="/resources/js/materialize.min.js"></script>
+<form id=form">
+    login:<br>
+    <input type="text" name="login"><br>
+    firstName:<br>
+    <input type="text" name="firstName">
+    <br><br>
+    <input  type="submit" value="Submit">
+</form>
 
-
+<%--
 <div class="row">
-    <form class="col s12">
+    <form id="addUserForm" class="col s12">
         <div class="row">
             <div class="input-field col s6">
                 <input placeholder="Placeholder" id="firstName" type="text" class="validate">
@@ -80,11 +97,13 @@
             </div>
         </div>
 
-        <button id="addUserButton" class="btn waves-effect waves-light" type="submit" name="action">Добавить
+        &lt;%&ndash; <button id="addUserButton">Добавить</button>&ndash;%&gt;
+
+        <button id="addUserButton" class="btn waves-effect waves-light" type="submit">Добавить
             <i class="material-icons right">send</i>
         </button>
     </form>
-</div>
+</div>--%>
 
 </body>
 </html>
