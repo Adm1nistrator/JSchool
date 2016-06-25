@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,10 +24,11 @@ public class UserRestController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/rest/users/")
     public ResponseEntity<User> create(@RequestBody User user) {
-        System.out.println("Создан пользователь" + user.getLastName());
-        if (!user.getLogin().equals("")) {
-            this.userService.addUser(user);
+        System.out.println("Создается пользователь :" + user.getLastName());
+        if (StringUtils.isEmpty(user.getLogin())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        this.userService.addUser(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
