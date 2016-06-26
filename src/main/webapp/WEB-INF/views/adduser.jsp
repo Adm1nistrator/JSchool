@@ -11,8 +11,9 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <script type="text/javascript" src="/resources/js/materialize.min.js"></script>
     <script type="text/javascript" src="/resources/js/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="/resources/js/materialize.min.js"></script>
+
     <script type="text/javascript">
         $(function () {
             $("form").submit(function (event) {
@@ -39,11 +40,10 @@
              event.preventDefault();
              });*/
 
-            $.fn.serializeObject = function()
-            {
+            $.fn.serializeObject = function () {
                 var o = {};
                 var a = this.serializeArray();
-                $.each(a, function() {
+                $.each(a, function () {
                     if (o[this.name] !== undefined) {
                         if (!o[this.name].push) {
                             o[this.name] = [o[this.name]];
@@ -68,7 +68,7 @@
     <form id="addUserForm" class="col s12">
         <div class="row">
             <div class="input-field col s6">
-                <input id="firstName" name="firstName" placeholder="Placeholder" type="text" class="validate">
+                <input id="firstName" name="firstName" type="text" class="validate">
                 <label for="firstName">First Name</label>
             </div>
             <div class="input-field col s6">
