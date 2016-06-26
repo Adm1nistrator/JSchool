@@ -1,4 +1,4 @@
-package jschool;
+package jschool.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -41,8 +41,10 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getUser(String login) {
         Session session = this.sessionFactory.getCurrentSession();
-        User user = (User) session.load(User.class, login);
-        return user;
+        Object object = session.get(User.class, login);
+        if (object==null) {
+           return null;
+        } return (User)object;
     }
 
     @Override

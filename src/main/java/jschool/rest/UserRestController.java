@@ -1,5 +1,7 @@
-package jschool;
+package jschool.rest;
 
+import jschool.dao.User;
+import jschool.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
@@ -24,28 +26,34 @@ public class UserRestController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/rest/users/")
     public ResponseEntity<User> create(@RequestBody User user) {
-        System.out.println("Создается пользователь :" + user.getLastName());
-        if (StringUtils.isEmpty(user.getLogin())) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        String login = user.getLogin();
+        if (StringUtils.isEmpty(login)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else if (this.userService.getUser(login) != null) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        this.userService.addUser(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+            this.userService.addUser(user);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
     @RequestMapping(method = RequestMethod.GET, path = "/rest/users/{login}")
     public ResponseEntity<User> findByLogin(@PathVariable("login") String login) {
+        User user = this.userService.getUser(login);
+        if (user == null) {
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(this.userService.getUser(login), HttpStatus.OK);
     }
 
 
     @RequestMapping(method = RequestMethod.GET, path = "/rest/users/")
     public HttpEntity<List<User>> findAll() {
-      /*  List<User> users = new ArrayList<>();
-        User user0 = new User("Алексей", "Долгих", new Date(123), "anykey", "password!1", "student", "academ.ru");
-        User user1 = new User("иван", "петров", new Date(12343), "hobbit", "password!2", "dent", "academ.info");
-        users.add(user0);
-        users.add(user1);*/
+        List<User> users = this.userService.listUsers();
+        if (users.isEmpty()) {
+            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
+        }
         return new ResponseEntity<>(this.userService.listUsers(), HttpStatus.OK);
     }
 
@@ -60,6 +68,10 @@ public class UserRestController {
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/rest/users/{login}")
     public ResponseEntity<User> delete(@PathVariable String login) {
+        User user = this.userService.getUser(login);
+        if (user == null) {
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
         this.userService.removeUser(login);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

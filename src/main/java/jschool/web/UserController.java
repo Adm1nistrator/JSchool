@@ -1,4 +1,4 @@
-package jschool;
+package jschool.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +16,12 @@ import java.util.Map;
 @Controller
 public class UserController {
 
-    @RequestMapping(path = "/getalluser")
+    @RequestMapping(path = "/users")
     public ModelAndView getAllUser(HttpServletRequest request) throws UnsupportedEncodingException {
         return new ModelAndView("getalluser");
     }
 
-    @RequestMapping(path = "/getuser", params = {"login"})
+    @RequestMapping(path = "/user", params = {"login"})
     public ModelAndView getUser(HttpServletRequest request, @RequestParam(value = "login") String login) throws UnsupportedEncodingException {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("login", login );

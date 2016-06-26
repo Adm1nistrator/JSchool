@@ -1,4 +1,4 @@
-package jschool;
+package jschool.dao;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Proxy;

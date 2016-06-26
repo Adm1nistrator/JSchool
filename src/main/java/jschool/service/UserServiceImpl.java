@@ -1,5 +1,7 @@
-package jschool;
+package jschool.service;
 
+import jschool.dao.User;
+import jschool.dao.UserDAO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,4 +47,5 @@ public class UserServiceImpl implements UserService {
     public void removeUser(String login) {
         this.userDAO.removeUser(login);
     }
+
 }

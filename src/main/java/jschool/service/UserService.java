@@ -1,4 +1,6 @@
-package jschool;
+package jschool.service;
+
+import jschool.dao.User;
 
 import java.util.List;
 
@@ -16,4 +18,6 @@ public interface UserService {
     User getUser(String login);
 
     void removeUser(String login);
+
+
 }

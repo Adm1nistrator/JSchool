@@ -2,18 +2,7 @@
 <%@page contentType="text/html;charset=utf-8" %>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-    <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="/resources/css/materialize.min.css" media="screen,projection"/>
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-    <script type="text/javascript" src="/resources/js/jquery-3.0.0.min.js"></script>
-    <script type="text/javascript" src="/resources/js/materialize.min.js"></script>
+    <jsp:include page="head.jsp"/>
 
     <script type="text/javascript">
         var path = "${pageContext.request.contextPath}";
@@ -21,25 +10,27 @@
             type: "GET",
             dataType: "json",
             url: path + "/rest/users/",
-            success: function (data) {
+            success: function (data, textStatus, jqXHR) {
                 var $resultList = $('.collection');
+                if (jqXHR.status == 204) {
+                    Materialize.toast('Cписок пуст', 4000);
+                    return;
+                }
+
                 for (var i = 0; i < data.length; i++) {
                     var item = data[i];
-                    var userUrl = path + "/getuser?login=" + item.login;
+                    var userUrl = path + "/user?login=" + item.login;
                     var deleteLink = path + "/rest/users/" + item.login;
                     var link = $("<a href='" + userUrl + "'>" + item.firstName + " " + item.lastName + "</а>");
                     var row = $("<li class='collection-item'></li>");
                     var button = $("<a href='" + deleteLink + "' class='secondary-content'><i class='small material-icons'>delete</i></a>");
 
-                    button.click(function (event) {
+                    button.on("click", { "login": item.login }, function (event) {
                         event.preventDefault();
-                        deleteuser(item.login,row);
+                        deleteuser(event.data.login, $(this).parent(".collection-item"));
                     });
                     $resultList.append(row.append(link).append(button));
                 }
-            },
-            error: function () {
-
             },
             complete: function () {
                 $(".progress").hide();
@@ -52,14 +43,13 @@
                 url: path + "/rest/users/" + login,
                 success: function () {
                     row.remove();
-                    alert("Пользователь удален ");
+                    Materialize.toast('пользователь удален', 4000);
+                },
+                error: function (jqXHR) {
+                    if (jqXHR.status == 404) {
+                        Materialize.toast('Пользователь не найден', 4000);
 
-                },
-                error: function () {
-                    alert("что-то пошло не так ");
-                },
-                complete: function () {
-                    alert("выполенно");
+                    }
                 }
 
             })
@@ -74,7 +64,11 @@
 <div class="progress">
     <div class="indeterminate"></div>
 </div>
+
 <div class="container">
+    <a href="${pageContext.request.contextPath}/adduser" class="btn-floating btn-large waves-effect waves-light red"
+       style="position: fixed; right: 20px; bottom: 20px;"><i
+            class="material-icons">add</i></a>
     <h4>Список пользователей</h4>
     <ul class="collection">
 

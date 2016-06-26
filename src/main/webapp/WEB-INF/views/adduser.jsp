@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <jsp:include page="head.jsp" />
+    <jsp:include page="head.jsp"/>
 
     <script type="text/javascript">
         $(function () {
@@ -15,14 +15,18 @@
                     contentType: "application/json; charset=utf-8",
                     data: formData,
                     success: function () {
-                        alert("Пользователь добавлен");
+                        Materialize.toast('Пользователь добавлен', 4000);
                     },
-                    error: function () {
-                        alert("что-то пошло не так ");
-                    },
-                    complete: function () {
-                        alert("выполненно ");
+                    error: function (jqXHR) {
+                        if (jqXHR.status == 404) {
+                            Materialize.toast('404 status code. Не указан Логин', 4000);
+                        }
+                        if (jqXHR.status == 409) {
+                            Materialize.toast('409 status code. Пользователь с таким логином уже существует', 4000);
+                        }
+
                     }
+
                 });
                 return false;
             });
@@ -32,6 +36,7 @@
 <body>
 <div class="container">
     <h1>Создание нового пользователя</h1>
+
     <div class="row">
         <form id="addUserForm" class="col s12">
             <div class="row">

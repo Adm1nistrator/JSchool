@@ -21,6 +21,8 @@
 
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources
         in the /WEB-INF/views directory -->
+    <context:component-scan base-package="jschool"/>
+
     <beans:bean
             class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/views/"/>
@@ -41,7 +43,7 @@
         <beans:property name="dataSource" ref="dataSource"/>
         <beans:property name="annotatedClasses">
             <beans:list>
-                <beans:value>jschool.User</beans:value>
+                <beans:value>jschool.dao.User</beans:value>
             </beans:list>
         </beans:property>
         <beans:property name="hibernateProperties">
@@ -54,13 +56,13 @@
         </beans:property>
     </beans:bean>
 
-    <beans:bean id="userDAO" class="jschool.UserDAOImpl">
+    <beans:bean id="userDAO" class="jschool.dao.UserDAOImpl">
         <beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
     </beans:bean>
-    <beans:bean id="userService" class="jschool.UserServiceImpl">
+    <beans:bean id="userService" class="jschool.service.UserServiceImpl">
         <beans:property name="userDAO" ref="userDAO"></beans:property>
     </beans:bean>
-    <context:component-scan base-package="jschool"/>
+
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
