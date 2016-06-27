@@ -57,10 +57,11 @@ URL: /rest/users/{login}
 
 В файле servlet-context.xml  \src\main\webapp\WEB-INF\spring\appServlet необходимо задать параметры для подключения к БД
  ```html
+ <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
   <!-- настройки для подключения к базе данных -->
         <beans:property name="driverClassName" value="org.postgresql.Driver"/> //драйвер для подключения к БД
         <beans:property name="url" value="jdbc:postgresql://localhost:5432/users"/> //Адрес сервера БД
         <beans:property name="username" value="postgres"/> //Имя пользователя
         <beans:property name="password" value="2016"/>     //Пароль
-    </beans:bean>
+ </beans:bean>
  ```
