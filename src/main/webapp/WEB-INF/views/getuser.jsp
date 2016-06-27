@@ -82,7 +82,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Обновление данных пользователя</h1>
+    <h3>Обновление данных пользователя, с логином ${login}</h3>
 
     <div class="row">
         <form id="addUserForm" class="col s12">

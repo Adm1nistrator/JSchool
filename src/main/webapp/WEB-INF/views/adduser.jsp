@@ -35,7 +35,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Создание нового пользователя</h1>
+    <h3>Создание нового пользователя</h3>
 
     <div class="row">
         <form id="addUserForm" class="col s12">
