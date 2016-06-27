@@ -5,6 +5,7 @@
 <head>
     <jsp:include page="head.jsp"/>
 
+
     <script type="text/javascript">
         $(function () {
             var login = "${login}";
@@ -13,7 +14,7 @@
                 dataType: "json",
                 url: "${pageContext.request.contextPath}/rest/users/" + login,
                 success: function (item) {
-                    setTimeout(function(){
+                    setTimeout(function () {
                         $('#firstName').val(item.firstName);
                         $('#lastName').val(item.lastName);
                         $('#password').val(item.password);
@@ -88,35 +89,35 @@
             <div class="row">
                 <div class="input-field col s6">
                     <input id="firstName" name="firstName" type="text" class="validate">
-                    <label for="firstName">First Name</label>
+                    <label class="active" for="firstName">First Name</label>
                 </div>
                 <div class="input-field col s6">
                     <input id="lastName" name="lastName" type="text" class="validate">
-                    <label for="lastName">Last Name</label>
+                    <label class="active" for="lastName">Last Name</label>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s6">
                     <input id="login" name="login" type="text" class="validate" disabled="disabled">
-                    <label for="login">Login</label>
+                    <label class="active" for="login">Login</label>
                 </div>
                 <div class="input-field col s6">
                     <input id="password" name="password" type="password" class="validate">
-                    <label for="password">Password</label>
+                    <label class="active" for="password">Password</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s2">
-                    <input id="birthDay" name="birthDay" type="date" class="datepicker">
+                    <input class="active" id="birthDay" name="birthDay" type="date" class="datepicker">
                 </div>
                 <div class="input-field col s4">
                     <input id="address" name="address" type="text" class="validate">
-                    <label for="address">address</label>
+                    <label class="active" for="address">address</label>
                 </div>
                 <div class="input-field col s6">
                     <textarea id="aBout" name="aBout" class="materialize-textarea" length="120"></textarea>
-                    <label for="aBout">about</label>
+                    <label class="active" for="aBout">about</label>
                 </div>
             </div>
 

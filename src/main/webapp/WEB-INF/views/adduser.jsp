@@ -42,22 +42,22 @@
             <div class="row">
                 <div class="input-field col s6">
                     <input id="firstName" name="firstName" type="text" class="validate">
-                    <label for="firstName">Имя</label>
+                    <label class="active" for="firstName">Имя</label>
                 </div>
                 <div class="input-field col s6">
                     <input id="lastName" name="lastName" type="text" class="validate">
-                    <label for="lastName">Фамилия</label>
+                    <label class="active" for="lastName">Фамилия</label>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s6">
                     <input id="login" name="login" type="text" class="validate">
-                    <label for="login">Логин</label>
+                    <label class="active" for="login">Логин</label>
                 </div>
                 <div class="input-field col s6">
                     <input id="password" name="password" type="password" class="validate">
-                    <label for="password">Пароль</label>
+                    <label class="active" for="password">Пароль</label>
                 </div>
             </div>
             <div class="row">
@@ -66,11 +66,11 @@
                 </div>
                 <div class="input-field col s4">
                     <input id="address" name="address" type="text" class="validate">
-                    <label for="address">Адрес</label>
+                    <label class="active" for="address">Адрес</label>
                 </div>
                 <div class="input-field col s6">
                     <textarea id="aBout" name="aBout" class="materialize-textarea" length="120"></textarea>
-                    <label for="aBout">Дополнительные сведения</label>
+                    <label class="active"for="aBout">Дополнительные сведения</label>
                 </div>
             </div>
 
